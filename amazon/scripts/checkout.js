@@ -1,18 +1,19 @@
 import { products } from "./data.js";
 import {cart, removeFromCart} from "./cart.js";
 import { formatCurrency } from "./util/money.js";
-
 document.addEventListener('DOMContentLoaded', () => {
-
-
+  
+  const pageHeader = document.querySelector('.page-title');
   let cartSummaryHTML = '';
   let orderSummaryHTML = '';
   let subTotal = 0;
   let totalItems = 0;
   
   
+  
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
+
   
     let matchingProduct;
     totalItems += cartItem.quantity;
@@ -22,9 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         matchingProduct = product;
       }
     });
-  
-   
-  
+    
     cartSummaryHTML+= `
   <div class="cart-summary-container js-cart-summary-container-${matchingProduct.id}">
     <div class="delivery-date">
@@ -94,6 +93,13 @@ document.addEventListener('DOMContentLoaded', () => {
   
     subTotal += matchingProduct.priceCents * cartItem.quantity;
   });
+
+  if (totalItems == 0){
+    pageHeader.innerHTML = `<div>Cart Is Empty</div>`;
+  }
+  else {
+    pageHeader.innerHTML = `<div>Review Your Order</div>`;
+  }
   
     orderSummaryHTML = `
   
@@ -143,24 +149,34 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             </div>
   `
-  
+
+  updateCartTotal();
+
   document.querySelector('.payment-summary').innerHTML = orderSummaryHTML;
-  
-  
-  
+
   document.querySelector('.js-cart-summary').innerHTML = cartSummaryHTML;
+
   
   document.querySelectorAll('.js-delete-link').forEach((link) => {
     link.addEventListener('click', () => {
       const productId = link.dataset.productId;
+      const item = cart.find(item => item.productId === productId);
+      if (item){
       removeFromCart(productId);
+      }
   
      const container = document
      .querySelector(`.js-cart-summary-container-${productId}`);
      container.remove();
-      
+     totalItems -= item.quantity;
+     updateCartTotal();
     });
   });
+
+
+  function updateCartTotal(){
+    document.querySelector('.js-cart-quantity').innerHTML = `<div>${totalItems}</div>`;
+    }
   
 
   

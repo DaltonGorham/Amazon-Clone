@@ -11,7 +11,6 @@ if (!cart){
 }
 
 
-
   function saveToStorage(){
   localStorage.setItem('cart', JSON.stringify(cart));
 }
@@ -24,6 +23,7 @@ export function addToCart(productId){
   let selectElement = document.querySelector(`.js-quantity-selector-${productId}`);
 
   let numberOfProducts = selectElement.value;
+
 
   cart.forEach((cartItem) => {
     if (productId === cartItem.productId){
