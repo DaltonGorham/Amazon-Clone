@@ -29,6 +29,7 @@ export function addToCart(productId){
 
   let numberOfProducts = selectElement.value;
 
+
   cart.forEach((cartItem) => {
     if (productId === cartItem.productId){
       matchingItem = cartItem;

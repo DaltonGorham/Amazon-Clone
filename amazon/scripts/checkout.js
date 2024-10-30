@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
 
   // same thing as above : loop through each option in deliveryOptions
-  // and compare and if they are equal, set deliveryOption to option
+  // and compare and if they are equal, set deliveryOption to option.
    const deliveryOptionId = cartItem.deliveryOptionId;
 
    let deliveryOption;
