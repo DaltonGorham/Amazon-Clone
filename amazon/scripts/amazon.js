@@ -60,7 +60,7 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 
 
-function updateCartQuantity(){
+ function updateCartQuantity(){
   let cartQauntity = 0;
 
     cart.forEach((cartItem) => {
